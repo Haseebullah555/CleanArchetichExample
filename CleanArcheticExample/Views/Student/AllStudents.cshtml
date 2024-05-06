@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Application.DTOs.Student.StudentDto>
+
+<div class="container">
+    <div>
+        <a asp-action="CreateStudent" class="btn btn-success">Add New Student</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Grad</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+              @foreach(var student in Model)
+            {
+                <tr>
+                    <td>@student.FirstName</td>
+                    <td>@student.LastName</td>
+                    <td>@student.Email</td>
+                    <td>@student.Grade</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@student.Id" class="btn btn-primary">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@student.Id" class="btn btn-info">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger">Delete</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
