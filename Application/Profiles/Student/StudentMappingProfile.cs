@@ -4,11 +4,11 @@ using Application.Features.Students.Request.Command;
 using AutoMapper;
 using Domain.Models;
 
-namespace Application.Profiles
+namespace Application.Profiles.Student
 {
-    public class MappingProfile : Profile
+    public class StudentMappingProfile : Profile
     {
-        public MappingProfile()
+        public StudentMappingProfile()
         {
             CreateMap<StudentModel, StudentDto>().ReverseMap();
             CreateMap<StudentModel, CreateStudentDto>().ReverseMap();
