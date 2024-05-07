@@ -1,0 +1,69 @@
+﻿@model Application.DTOs.Registeration.RegisterDto
+@{
+    ViewBag.Title = "Register";
+}
+<div class="container">
+    <form asp-controller="Account" asp-action="Register" method="post">
+        <h2 class="text-large">Register New Student</h2>
+        <hr/>
+        @* StudentName *@
+        <div class="row mb-3">
+            <lable asp-for="StudentName" class="col-sm-2 col-form-label">Student Name</lable>
+            <div class="col-sm-10">
+                <input asp-for="StudentName" class="form-control" />
+                <span asp-validation-for="StudentName" class="text-red"></span>
+            </div>
+        </div>
+        @* StudentEmail *@
+        <div class="row mb-3">
+            <lable asp-for="Email" class="col-sm-2 col-form-label">Student Email</lable>
+            <div class="col-sm-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-red"></span>
+            </div>
+        </div>
+        @* StudentPhone *@
+        <div class="row mb-3">
+            <lable asp-for="Phone" class="col-sm-2 col-form-label">Student Phone</lable>
+            <div class="col-sm-10">
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-red"></span>
+            </div>
+        </div>
+        @* Password *@
+        <div class="row mb-3">
+            <lable asp-for="Password" class="col-sm-2 col-form-label">Student Password</lable>
+            <div class="col-sm-10">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-red"></span>
+            </div>
+        </div>
+        @* StudentName *@
+        <div class="row mb-3">
+            <lable asp-for="ConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</lable>
+            <div class="col-sm-10">
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-red"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-success col-sm-12">Register</button>
+                Already Registered? <a asp-action="Login" asp-controller="Account" class="link-hover">Login</a>
+            </div>
+        </div>
+        <div asp-validation-summary="All" class="text-red"></div>
+        @if (ViewBag.Errors != null)
+        {
+            <div class="text-red ml">
+                <ul>
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        <li class="ml"></li>
+                    }
+                </ul>
+            </div>
+        }
+    </form>
+</div>
