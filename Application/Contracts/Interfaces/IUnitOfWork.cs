@@ -10,6 +10,7 @@ namespace Application.Contracts.Interfaces
     {
         public IStudentRepository StudentRepository { get; }
         public ISubjectRepository SubjectRepository { get; }
+        public IUserRegisterationRepository userRegisterationRepository { get; } 
         void Complete();
     }
 }

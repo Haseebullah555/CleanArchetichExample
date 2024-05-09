@@ -1,4 +1,4 @@
-﻿@model Application.DTOs.Registeration.RegisterDto
+﻿@model Application.DTOs.Registeration.UserRegisterDto
 @{
     ViewBag.Title = "Register";
 }
@@ -10,8 +10,8 @@
         <div class="row mb-3">
             <lable asp-for="StudentName" class="col-sm-2 col-form-label">Student Name</lable>
             <div class="col-sm-10">
-                <input asp-for="StudentName" class="form-control" />
-                <span asp-validation-for="StudentName" class="text-red"></span>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-red"></span>
             </div>
         </div>
         @* StudentEmail *@

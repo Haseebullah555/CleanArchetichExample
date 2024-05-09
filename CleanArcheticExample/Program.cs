@@ -1,14 +1,15 @@
+using Application;
 using Persistence;
 using Infrastructure;
-using Application;
+using CleanArcheticExample.StartUpExtension;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
+builder.Services.AddPersistence(builder.Configuration);
 
 //builder.Services.AddTransient<IRequestHandler<GetAllStudentRequest, List<StudentDto>>,GetAllStudentRequestHandler>();
 var app = builder.Build();

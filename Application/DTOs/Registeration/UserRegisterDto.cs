@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs.Registeration
 {
-    public class RegisterDto 
+    public class UserRegisterDto 
     {
         [Required(ErrorMessage ="Student Name is required!")]
-        public string StudentName { get; set; }
+        public string Name { get; set; }
         [Required(ErrorMessage = "Student Email is required!")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Student Phone Number is required!")]
