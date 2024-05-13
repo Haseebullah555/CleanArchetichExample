@@ -10,6 +10,6 @@ namespace Application.Features.Subjects.Request.Command
 {
     public class DeleteSubjectCommand : IRequest<Unit>
     {
-        public SubjectDto subjectDto { get; set; }
+        public SubjectDto? SubjectDto { get; set; }
     }
 }

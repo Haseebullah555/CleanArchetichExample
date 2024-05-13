@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs.Registeration
 {
-    public class UserRegisterDto 
+    public class RegisterUserDto
     {
-        [Required(ErrorMessage ="Student Name is required!")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Student Name is required!")]
+        public string? UserName { get; set; }
         [Required(ErrorMessage = "Student Email is required!")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Student Phone Number is required!")]
         [DataType(DataType.PhoneNumber)]
-        public string Phone { get; set; }
+        public string? PhoneNumber { get; set; }
         [Required(ErrorMessage = "Password is required!")]
-        [DataType (DataType.Password)]
-        public string Password { get; set; }
+        [DataType(DataType.Password)]
+        public string? Password { get; set; }
         [Required(ErrorMessage = "Confirmed Password is required!")]
-        [DataType (DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        [DataType(DataType.Password)]
+        public string? ConfirmPassword { get; set; }
     }
 }

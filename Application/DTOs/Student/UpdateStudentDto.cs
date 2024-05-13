@@ -9,9 +9,9 @@ namespace Application.DTOs.Student
 {
     public class UpdateStudentDto : BaseDto
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Grade { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? Grade { get; set; }
     }
 }

@@ -10,12 +10,12 @@ namespace Application.DTOs.Student
     public class CreateStudentDto
     {
         [Required(ErrorMessage = "First Name is Required")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         [Required(ErrorMessage = "Last Name is Required")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         [Required(ErrorMessage = "Email is Required")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Grade is Required")]
-        public string Grade { get; set; }
+        public string? Grade { get; set; }
     }
 }

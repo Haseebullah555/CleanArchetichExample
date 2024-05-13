@@ -23,7 +23,7 @@ namespace Application.Features.Subjects.Handler.Command
         }
         public async Task<int> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
         {
-            var student = _mapper.Map<SubjectModel>(request.createSubjectDto);
+            var student = _mapper.Map<SubjectModel>(request.CreateSubjectDto);
             await _UoW.SubjectRepository.Insert(student);
             _UoW.Complete();
             return student.Id;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Contracts.Implementations
+namespace Persistence.Contracts.Implementations
 {
     public class SubjectRepository : GenericRepository<SubjectModel>, ISubjectRepository
     {

@@ -9,7 +9,7 @@ namespace Domain.Models
 {
     public class SubjectModel : BaseEntity
     {
-        public string SubjectName { get; set; }
+        public string? SubjectName { get; set; }
         public int TotalMarks { get; set; }
 
     }

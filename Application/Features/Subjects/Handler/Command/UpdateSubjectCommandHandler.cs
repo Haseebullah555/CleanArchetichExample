@@ -20,8 +20,8 @@ namespace Application.Features.Subjects.Handler.Command
 
         public async Task<int> Handle(UpdateSubjectCommand request, CancellationToken cancellationToken)
         {
-            var result = await _UoW.SubjectRepository.GetById(request.subjectDto.Id);
-            var subject = _mapper.Map<SubjectDto, SubjectModel>(request.subjectDto, result);
+            var result = await _UoW.SubjectRepository.GetById(request.SubjectDto.Id);
+            var subject = _mapper.Map<SubjectDto, SubjectModel>(request.SubjectDto, result);
             await _UoW.SubjectRepository.Update(subject);
             _UoW.Complete();
             return subject.Id;

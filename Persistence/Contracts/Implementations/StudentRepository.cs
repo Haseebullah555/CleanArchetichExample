@@ -1,14 +1,8 @@
 ﻿using Application.Contracts.Interfaces;
 using Domain.Models;
-using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Infrastructure.Contracts.Implementations
+namespace Persistence.Contracts.Implementations
 {
     public class StudentRepository : GenericRepository<StudentModel>, IStudentRepository
     {

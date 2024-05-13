@@ -6,20 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArcheticExample.Controllers
 {
-    public class SubjectController : Controller
+    public class SubjectController(IMediator mediator) : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator _mediator = mediator;
 
-        public SubjectController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         public async Task<IActionResult> Index()
         {
             var students = await _mediator.Send(new GetAllSubjectsRequest());
             return View(students);
         }
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -30,7 +26,7 @@ namespace CleanArcheticExample.Controllers
             {
                 return NotFound();
             }
-            var CreateSubject = new CreateSubjectCommand { createSubjectDto = createSubjectDto };
+            var CreateSubject = new CreateSubjectCommand { CreateSubjectDto = createSubjectDto };
             await _mediator.Send(CreateSubject);
             return RedirectToAction("Index");
         }

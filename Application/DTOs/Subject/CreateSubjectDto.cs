@@ -8,7 +8,7 @@ namespace Application.DTOs.Subject
 {
     public class CreateSubjectDto
     {
-        public string SubjectName { get; set; }
+        public string? SubjectName { get; set; }
         public int TotalMarks { get; set; }
     }
 }

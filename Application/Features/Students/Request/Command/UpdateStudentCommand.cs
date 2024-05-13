@@ -10,6 +10,6 @@ namespace Application.Features.Students.Request.Command
 {
     public class UpdateStudentCommand : IRequest<int>
     {
-        public StudentDto studentDto {  get; set; }
+        public StudentDto? StudentDto {  get; set; }
     }
 }

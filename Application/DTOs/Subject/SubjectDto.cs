@@ -9,7 +9,7 @@ namespace Application.DTOs.Subject
 {
     public class SubjectDto :BaseDto
     {
-        public string SubjectName { get; set; }
+        public string? SubjectName { get; set; }
         public int TotalMarks { get; set; }
     }
 }

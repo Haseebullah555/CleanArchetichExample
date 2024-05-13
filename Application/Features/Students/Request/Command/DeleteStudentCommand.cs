@@ -5,6 +5,6 @@ namespace Application.Features.Students.Request.Command
 {
     public class DeleteStudentCommand : IRequest<Unit>
     {
-        public StudentDto studentDto { get; set; }
+        public StudentDto? StudentDto { get; set; }
     }
 }

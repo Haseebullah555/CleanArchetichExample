@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Contracts.Implementations
+namespace Persistence.Contracts.Implementations
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
@@ -34,7 +34,7 @@ namespace Infrastructure.Contracts.Implementations
 
         public async Task<TEntity> GetById(int id)
         {
-            var result = _dbSet.Find(id);
+            var result = await _dbSet.FindAsync(id);
             if (result == null)
             {
                 throw new Exception("Not Found");

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,9 +19,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="AllStudents">Students</a>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Subject" asp-action="Index">All Subjects</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["Home"]</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="AllStudents">@localizer["Students"]</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Subject" asp-action="Index">@localizer["All Subjects"]</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">@localizer["All Users"]</a>
                     </div>
                 </div>
                 <div class="">

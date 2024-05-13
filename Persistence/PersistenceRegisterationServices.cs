@@ -1,9 +1,11 @@
-﻿using Domain.IdentityEntities;
+﻿using Application.Contracts.Interfaces;
+using Domain.IdentityEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Contracts.Implementations;
 using Persistence.Data;
 namespace Persistence
 {
@@ -17,6 +19,7 @@ namespace Persistence
                     .AddDefaultTokenProviders()
                     .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
                     .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }
     }

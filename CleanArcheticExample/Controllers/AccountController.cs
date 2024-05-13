@@ -1,18 +1,22 @@
 ﻿using Application.DTOs.Registeration;
+using Application.Features.Registration.Request.Command;
+using Application.Features.Registration.Request.Query;
 using Domain.IdentityEntities;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArcheticExample.Controllers
 {
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class AccountController(IMediator mediator) : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMediator _mediator = mediator;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public async Task<IActionResult> Index()
         {
-            _userManager = userManager; 
+            var users = await _mediator.Send(new GetAllUserRequest());
+            return View(users);
         }
         [HttpGet]
         public IActionResult Register()
@@ -20,15 +24,15 @@ namespace CleanArcheticExample.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(UserRegisterDto registerDto)
+        public async Task<IActionResult> Register(RegisterUserDto registerUserDto)
         {
-            if(ModelState.IsValid == false)
+            if (ModelState.IsValid == false)
             {
-                ViewBag.Error = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
-                return View(registerDto);
+               return NotFound();
             }
-            ApplicationUser user = new ApplicationUser();
-            return RedirectToAction(nameof(StudentController.AllStudents),"Student");
+            var CreateUser = new CreateUserCommand { User = registerUserDto };
+            await _mediator.Send(CreateUser);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -8,31 +8,27 @@ using Application.Features.Student.Request.Query;
 
 namespace CleanArcheticExample.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController(IMediator mediator) : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator _mediator = mediator;
 
-        public StudentController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
         public async Task<IActionResult> AllStudents()
         {
             var students = await  _mediator.Send(new GetAllStudentsRequest());
             return View(students);
         }
         [HttpGet]
-        public async Task<IActionResult> CreateStudent()
+        public IActionResult CreateStudent()
         {
             return View();
-        }   
+        }
         public async Task<IActionResult> CreateStudent(CreateStudentDto studentDto)
         {
             var CreateStudent = new CreateStudentCommand { CreateStudentDto = studentDto };
             await _mediator.Send(CreateStudent);
             return RedirectToAction("AllStudents");
         }
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var student = _mediator.Send(new GetStudentDetialsRequest { Id = id }).Result;
             return View(student);
@@ -44,16 +40,16 @@ namespace CleanArcheticExample.Controllers
             {
                 return NotFound();
             }
-            var updateStudent = new UpdateStudentCommand { studentDto = studentDto };
+            var updateStudent = new UpdateStudentCommand { StudentDto = studentDto };
             await _mediator.Send(updateStudent);
             return RedirectToAction("AllStudents");
         }
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var student = _mediator.Send(new GetStudentDetialsRequest { Id= id }).Result;
+            var student = _mediator.Send(new GetStudentDetialsRequest { Id = id }).Result;
             return View(student);
         }
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var student = _mediator.Send(new GetStudentDetialsRequest { Id = id }).Result;
             return View(student);
@@ -61,7 +57,7 @@ namespace CleanArcheticExample.Controllers
         [ActionName("Delete"), HttpPost]
         public async Task<IActionResult> DeleteConfirmed(StudentDto studentDto)
         {
-            var deleteStudent = new DeleteStudentCommand { studentDto = studentDto };
+            var deleteStudent = new DeleteStudentCommand { StudentDto = studentDto };
             await _mediator.Send(deleteStudent);
             return RedirectToAction("AllStudents");
         }

@@ -1,29 +1,24 @@
-﻿using Application.Contracts.Interfaces;
-using Application.DTOs.Registeration;
-using Application.Features.Registration.Request.Query;
+﻿using Application.Features.Registration.Request.Query;
 using AutoMapper;
+using Domain.IdentityEntities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Registration.Handler.Query
 {
-    public class GetAllUserRequestHandler : IRequestHandler<GetAllUserRequest, List<UserRegisterDto>>
+    public class GetAllUserRequestHandler : IRequestHandler<GetAllUserRequest, List<ApplicationUser>>
     {
-        private readonly IUnitOfWork _UoW;
-        private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public GetAllUserRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetAllUserRequestHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
-            _UoW = unitOfWork;
-            _mapper = mapper;
+            _usermanager = userManager;
         }
-        public Task<List<UserRegisterDto>> Handle(GetAllUserRequest request, CancellationToken cancellationToken)
+        public async Task<List<ApplicationUser>> Handle(GetAllUserRequest request, CancellationToken cancellationToken)
         {
-            var users
+            var users = await _usermanager.Users.ToListAsync();
+            return users;
         }
     }
 }

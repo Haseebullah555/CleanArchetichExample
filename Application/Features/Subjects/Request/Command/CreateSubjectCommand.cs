@@ -10,6 +10,6 @@ namespace Application.Features.Subjects.Request.Command
 {
     public class CreateSubjectCommand : IRequest<int>
     {
-        public CreateSubjectDto createSubjectDto { get; set; }
+        public CreateSubjectDto? CreateSubjectDto { get; set; }
     }
 }
