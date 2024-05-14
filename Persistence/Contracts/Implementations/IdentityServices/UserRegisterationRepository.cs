@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.IdentityEntities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Data;
 
 namespace Persistence.Contracts.Implementations.IdentityServices
 {
@@ -11,6 +12,12 @@ namespace Persistence.Contracts.Implementations.IdentityServices
         private readonly IUnitOfWork _UoW;
         private readonly UserManager<ApplicationUser> _usermanager;
         private readonly IMapper _mapper;
+        private ApplicationDbContext context;
+
+        public UserRegisterationRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
 
         public UserRegisterationRepository(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
@@ -29,11 +36,11 @@ namespace Persistence.Contracts.Implementations.IdentityServices
             return users;
         }
 
-        public Task<ApplicationUser> GetById(int id)
+        public Task<ApplicationUser> GetById(string id)
         {
-            throw new NotImplementedException();
+            var user = _usermanager.FindByIdAsync(id);
+            return user;
         }
-
         public Task Insert(ApplicationUser applicationUser)
         {
             throw new NotImplementedException();

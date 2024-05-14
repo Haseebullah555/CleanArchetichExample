@@ -1,6 +1,7 @@
-﻿@model Application.DTOs.Registeration.UserDto
+﻿@model Application.DTOs.Registeration.RegisterUserDto
 @{
     ViewBag.Title = "Register";
+    ViewBag.CurrentUrl = "~/Account/Register";
 }
 <div class="container">
     <form asp-controller="Account" asp-action="Register" method="post">

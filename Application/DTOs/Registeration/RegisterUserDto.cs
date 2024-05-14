@@ -21,6 +21,7 @@ namespace Application.DTOs.Registeration
         public string? Password { get; set; }
         [Required(ErrorMessage = "Confirmed Password is required!")]
         [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Password and Confirm password do not match")]
         public string? ConfirmPassword { get; set; }
     }
 }

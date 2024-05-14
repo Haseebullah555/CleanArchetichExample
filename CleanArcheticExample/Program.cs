@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Application.Contracts.Interfaces;
+using Persistence.Contracts.Implementations.IdentityServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,7 @@ var supportedCultures = new[]
 {
     new CultureInfo("en-US"),
     new CultureInfo("fa-IR"),
-    new CultureInfo("pa-AF")
+    new CultureInfo("ps-AF")
 };
 builder.Services.Configure<RequestLocalizationOptions>(opt =>
 {
@@ -44,6 +46,7 @@ app.UseStaticFiles();
 // Enable localization middleware
 var localizationOptions = new RequestLocalizationOptions();
 app.UseRequestLocalization(localizationOptions);
+app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();

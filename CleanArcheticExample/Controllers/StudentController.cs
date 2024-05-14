@@ -8,10 +8,14 @@ using Application.Features.Student.Request.Query;
 
 namespace CleanArcheticExample.Controllers
 {
-    public class StudentController(IMediator mediator) : Controller
+    public class StudentController : Controller
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly IMediator _mediator;
 
+        public StudentController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         public async Task<IActionResult> AllStudents()
         {
             var students = await  _mediator.Send(new GetAllStudentsRequest());
@@ -40,7 +44,7 @@ namespace CleanArcheticExample.Controllers
             {
                 return NotFound();
             }
-            var updateStudent = new UpdateStudentCommand { StudentDto = studentDto };
+            var updateStudent = new UpdateStudentCommand { studentDto = studentDto };
             await _mediator.Send(updateStudent);
             return RedirectToAction("AllStudents");
         }

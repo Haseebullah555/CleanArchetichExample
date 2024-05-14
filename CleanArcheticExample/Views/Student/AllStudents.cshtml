@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Application.DTOs.Student.StudentDto>
-
+@{
+    ViewBag.title = "AllStudents";
+    ViewBag.CurrentUrl = "~/Student/AllStudents";
+}
 <div class="container">
     <div>
         <a asp-action="CreateStudent" class="btn btn-success">Add New Student</a>

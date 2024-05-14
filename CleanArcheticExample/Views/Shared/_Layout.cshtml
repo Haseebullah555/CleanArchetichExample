@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CleanArcheticExample.styles.css" asp-append-version="true" />
+    <link href="~/css/CustomStyleSheet.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -20,16 +21,41 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["Home"]</a>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="AllStudents">@localizer["Students"]</a>
+                        @if(ViewBag.CurrentUrl == "~/Student/AllStudents")
+                        {
+                            <a class="nav-link text-dark active-nav" asp-area="" asp-controller="Student" asp-action="AllStudents">@localizer["Students"]</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="AllStudents">@localizer["Students"]</a>
+                        }
                         <a class="nav-link text-dark" asp-area="" asp-controller="Subject" asp-action="Index">@localizer["All Subjects"]</a>
                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">@localizer["All Users"]</a>
                     </div>
                 </div>
                 <div class="">
-                    <div class="navbar-nav">
-                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
-                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="navbar-nav">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="nav-link text-dark">@User.Identity?.Name</span>
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-nav">
+                            @if (ViewBag.CurrentUrl == "~/Account/Register")
+                            {
+                                <a class="nav-link text-dark active-nav" asp-controller="Account" asp-action="Register">Register</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                            }
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>

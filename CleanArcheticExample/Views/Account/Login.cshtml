@@ -1,0 +1,49 @@
+﻿@model Application.DTOs.Registeration.LoginDto
+@{
+    ViewBag.Title = "Login";
+    ViewBag.CurrentUrl = "~/Account/Login";
+}
+<div class="container">
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <h2 class="text-large">User Login</h2>
+        <hr />
+        @* StudentEmail *@
+        <div class="row mb-3">
+            <lable asp-for="Email" class="col-sm-2 col-form-label">Email</lable>
+            <div class="col-sm-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-red"></span>
+            </div>
+        </div>
+
+        @* Password *@
+        <div class="row mb-3">
+            <lable asp-for="Password" class="col-sm-2 col-form-label">Password</lable>
+            <div class="col-sm-10">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-red"></span>
+            </div>
+        </div>
+        @* Login Button *@
+        <div class="row mb-3">
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-success col-sm-12">Login</button>
+                Not yet Registered? <a asp-action="Register" asp-controller="Account" class="link-hover">Register</a>
+            </div>
+        </div>
+        <div asp-validation-summary="All" class="text-red"></div>
+        @if (ViewBag.Errors != null)
+        {
+            <div class="text-red ml">
+                <ul>
+                    @foreach (string error in ViewBag.Errors)
+                    {
+                        <li class="ml"></li>
+                    }
+                </ul>
+            </div>
+        }
+    </form>
+</div>
+Aman@123

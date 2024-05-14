@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contracts.Implementations;
+using Persistence.Contracts.Implementations.IdentityServices;
 using Persistence.Data;
 namespace Persistence
 {
@@ -20,6 +21,7 @@ namespace Persistence
                     .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
                     .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            //services.AddTransient<IUserRegisterationRepository, UserRegisterationRepository>();
             return services;
         }
     }

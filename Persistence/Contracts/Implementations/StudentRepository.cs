@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Interfaces;
+﻿ using Application.Contracts.Interfaces;
 using Domain.Models;
 using Persistence.Data;
 
