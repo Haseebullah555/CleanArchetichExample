@@ -12,12 +12,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace CleanArcheticExample.Controllers
 {
     [Route("[controller]/[action]")]
-    public class AccountController(IMediator mediator,SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager, IMapper mapper) : Controller
+    public class AccountController(IMediator mediator,SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager, IMapper mapper,IUnitOfWork unitOfWork) : Controller
     {
         private readonly IMediator _mediator = mediator;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
+        private readonly SignInManager<ApplicationUser> _signInManager =  signInManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
         //private readonly IUserRegisterationRepository _userRegisterationRepository = userRegisterationRepository;
 
         public async Task<IActionResult> Index()
@@ -38,14 +39,15 @@ namespace CleanArcheticExample.Controllers
                 ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
                 return View(registerUserDto);
             }
-            //var user = _mapper.Map<ApplicationUser>(registerUserDto);
-            var user = new ApplicationUser 
-            { 
-                UserName = registerUserDto.UserName,
-                Email = registerUserDto.Email,
-                PhoneNumber = registerUserDto.PhoneNumber
-            };
-            IdentityResult result = await _userManager.CreateAsync(user);
+            var user = _mapper.Map<ApplicationUser>(registerUserDto);
+            //var user = new ApplicationUser 
+            //{ 
+            //    UserName = registerUserDto.UserName,
+            //    Email = registerUserDto.Email,
+            //    PhoneNumber = registerUserDto.PhoneNumber
+            //};
+            IdentityResult result = await _userManager.CreateAsync(user, registerUserDto.Password);
+            _unitOfWork.Complete();
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
@@ -83,7 +85,7 @@ namespace CleanArcheticExample.Controllers
                  ViewBag.Errors = ModelState.Values.SelectMany(temp=> temp.Errors).Select(temp=>temp.ErrorMessage);
                 return View(loginDto);
             }
-            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, isPersistent:false, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, isPersistent:false, lockoutOnFailure: false);
             if(result.Succeeded)
             {
                 return RedirectToAction(nameof(HomeController.Index),"Home");
