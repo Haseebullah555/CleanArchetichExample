@@ -1,17 +1,17 @@
 ﻿using Application.Contracts.Interfaces;
 using Application.DTOs.Registeration;
-using Application.Features.Registration.Request.Command;
 using Application.Features.Registration.Request.Query;
 using AutoMapper;
-using Azure.Core;
 using Domain.IdentityEntities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArcheticExample.Controllers
 {
     [Route("[controller]/[action]")]
+    [AllowAnonymous]
     public class AccountController(IMediator mediator,SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager, IMapper mapper,IUnitOfWork unitOfWork) : Controller
     {
         private readonly IMediator _mediator = mediator;
@@ -82,7 +82,7 @@ namespace CleanArcheticExample.Controllers
         {
             if (ModelState.IsValid == false)
             {
-                 ViewBag.Errors = ModelState.Values.SelectMany(temp=> temp.Errors).Select(temp=>temp.ErrorMessage);
+                ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
                 return View(loginDto);
             }
             var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, isPersistent:false, lockoutOnFailure: false);

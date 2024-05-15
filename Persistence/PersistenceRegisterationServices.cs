@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contracts.Implementations;
-using Persistence.Contracts.Implementations.IdentityServices;
 using Persistence.Data;
 namespace Persistence
 {
@@ -15,12 +14,13 @@ namespace Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders()
                     .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
                     .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            
             //services.AddTransient<IUserRegisterationRepository, UserRegisterationRepository>();
             return services;
         }

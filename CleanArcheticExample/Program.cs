@@ -1,12 +1,9 @@
 using Application;
 using Persistence;
-using CleanArcheticExample.StartUpExtension;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Application.Contracts.Interfaces;
-using Persistence.Contracts.Implementations.IdentityServices;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddAuthorization(option =>
+{
+    option.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+});
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.LoginPath = "/Account/Login";
+});
 builder.Services.AddLocalization(opt => { opt.ResourcesPath = "Resources";});
 builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
 
 // Configure supported cultures for localization
 //var supportedCultures = new[] {"en-US","fa-IR","ps-AF" };
@@ -46,9 +52,8 @@ app.UseStaticFiles();
 // Enable localization middleware
 var localizationOptions = new RequestLocalizationOptions();
 app.UseRequestLocalization(localizationOptions);
-app.UseAuthentication();
 app.UseRouting();
-
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(
